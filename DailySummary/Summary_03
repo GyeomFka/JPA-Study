@@ -1,0 +1,73 @@
+JPA 이해를 위해선
+
+<영속성 컨텍스트>를 이해해야한다.
+
+JPA 핵심
+1. 객체 ↔ 관계형 DB 매핑
+    * DB설계 와 객체설계를 어떻게 해서 이걸 중간에 JPA를 어떻게 매핑할것이냐의 개념
+2. 영속성 컨텍스트
+    * 실제 JPA가 내부에서 어떻게 동작하는지의 개념
+
+EntitiManagerFactory 와 EntityManager
+
+영속성 컨텍스트
+번역(하자면) : "Entity를 영구 저장하는 환경"
+
+persist 메소드는 사실 DB에 저장하는것이 아니라  Entity를 영속성 컨텍스트라는곳에 저장을 한다.
+
+영,컨 은 ; 논리적인 개념
+    눈에 보이지 않는다.
+    EntityManager를 통해 영,컨 에 접근
+
+EntityManager를 생성을 하면 그 안에 1:1 로 PersistenceContext가 생성이 된다.
+
+물리적인 EntityManager 내부에 논리적인 PersistenceContext가 생성이 된다.
+
+Entity의 생명주기 !
+
+코드상으로 보여주자면
+
+----비영속상태---- JPA와는 관련이 없다고봐도 무방
+Member member = new Member();
+member.setId(100);
+member.setName("HEllo");
+
+----영속상태----  영속성 컨텍스트를 통해 manager가 관리가 된다는 뜻 ; 이때 사실상 DB에 저장이 되는것은 아니다
+entitymanager.persiste(member)
+
+entitymanager 내부에 1차 캐시를  영속성 컨텍스트 자체로 이해를 해도 무방 미묘한 차이가 있긴있다.
+
+조회를 할 때
+entitymanager.find(member.classm, "member1");
+JPA는 영속성 컨텍스트에서 먼저 디비를 검색하는게 아니고 1차캐시를 검색한다.
+1차캐시에 memberentity가 있으면 그대로 가지고 온다.
+DB에 있고, 1차캐시에 없다고 가정할때, -> 영,컨에 없으면 DB 조회 후 1차캐시에 저장 -> 반환
+
+뭐 이것의 성능적인 그런 이점보다는, 컨셉의 이점이 있다.
+* 객체지향적인 코드를 작성
+
+<* 영속상태진입 != 쿼리전송 *>
+쿼리 전송은 ? 트랜잭션 커밋 시점에 - 영속성 컨텍스트 내부의 쿼리가 전송됨
+
+
+영,컨의 이점 ?
+왜 이런 메커니즘을 두는거지 ?
+
+Application 와 Database 중간계층이 있는 느낌은 잡힌다.
+중간계증 존재의 장점 ?
+캐싱, 버퍼링 등 알아봐야한다.
+
+
+영속성 엔티티의 동일성 보장
+M a = em.find(M.class, "member1");
+M b = em.find(M.class, "member1");
+
+sout(a==b); 동일성 비교 //true
+1차 캐시로 반복 가능한 읽기(Repeatable read ) 등급의 트랜잭션 격리 수준을 DB가 아닌 App내부 차원에서 제공
+마치 자바 컬렉션에서 꺼내서 똑같은 Ref가 있는 객체를 꺼내면 == 비교하면 똑같은것처럼
+1차캐시의 컨셉,
+
+업데이트시  set작업만하고 upd쿼리를(동작) 실행시키지 않는 이유 ?
+commit 시점 -> flush 호출 -> 엔티티와 초기 스냅샷 비교 ->
+
+FLUSH개념

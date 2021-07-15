@@ -1,0 +1,15 @@
+'21.07.14
+JPA ↔ Database
+H2Database : 웹상에서 가벽게 RDB를 접할수있다.
+실습은 메이븐 프로젝트
+
+*JPA는 결국 Interface인데, Interface의 구현체로서 Hibernate Library를 선택했다.
+Hibernate가 JPA Interface를 갖고있다.
+
+결국 Spring환경에서 JPA가 실행이 되어야 한다.
+
+Library 중 javax.pers~.api:2.2 이놈이 JAP Interface의 모임
+
+JPA설정을 위해
+
+<META-INF/persistence.xml> 경로에 xml파일을 생성해줘야한다.
