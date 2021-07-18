@@ -1,0 +1,24 @@
+[엔티티 매핑 소개]
+
+객체와 클래스 매핑 (클래스와 테이블 매핑)
+@Entity가 붙은 클래스 -> JPA가 관리
+JPA관련 테이블 -> @Entity 필수
+    * 주의
+        1) 기본생성자 필수 (jpa스펙상 규정) - why ? jpa라이브러리들이 핸들링 하기 위한 기본 스펙
+        2) final, enum, interface, inner 사용 X
+        3) 저장할 필드에 final사용 x
+
+
+Database Schema Auto Create 스키마 자동생성
+1.JPA에서는 Application 로딩시점에 DB테이블 생성하는 기능 지원 (운영에서 사용 하면 절대안된다고보면된다.)
+2.Table 중심 -> Object 중심
+3.DB에 맞는 방언을 활용한 적절한 ddl생성 (ex : oracle, mysql ...)
+4.생성된 ddl 개발 에서만 사용 (권장)
+5.생성된 ddl은 운영서버에 다듬어 사용(권장)
+
+
+1) create
+2) create-drop                      ex) testcase 실행할때라던가 등등,
+3) update -변경부분만 작업해준다,      ex) age라는 컬럼을 하나 추가한다 ? -> drop을 하기싫다 -> alter table 쿼리문 작성을 해준다.
+4) validate                         ex)
+5) none                             ex) 주석과 같다. 관례상 none이라 적는것이다.

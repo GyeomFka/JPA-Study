@@ -19,7 +19,7 @@ hibernate dialect는 hibernate 전용 다른 DB도 dialect가 적용이 되지�
             <property name="hibernate.show_sql" value="true"/>          <!-- 콘솔에 print로 쿼리를 보여준다. -->
             <property name="hibernate.format_sql" value="true"/>        <!-- 콘솔에 print로 포맷팅 보여준다. -->
             <property name="hibernate.use_sql_comments" value="true"/>  <!-- 콘솔에 print로 주석내용을 보여준다. -->
-            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <property name="hibernate.hbm2ddl.auto" value="none" />
         </properties>
     </persistence-unit>
 </persistence>
