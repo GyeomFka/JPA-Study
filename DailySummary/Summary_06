@@ -1,0 +1,19 @@
+DDL 생성기능
+
+unique추가 라던가 length제약조건을 걸때
+DB에영향을 주는거지, Application에는 영향을 안 끼친다.
+
+[필드와 컬럼 매핑]
+
+blob
+clob 이 뭐냐
+
+unique제약조건은 잘 쓰지 않는다
+-> hibernate  ddl을 보면 이상한 문자로 변환된다. -> 컬럼에 따로 unique제약조건을 걸지않고
+@Table (unique  속성으로 주는게 더 좋다.)
+
+자바8 이후부터
+
+
+lob속성이 없다.
+
