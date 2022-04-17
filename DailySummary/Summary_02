@@ -6,3 +6,4 @@
 5. EntityManager 단위로 요청단위 작업
 6. JPA모든 데이터 변경은 Transaction 안에서 일어나야 한다. -> commit
 7. 자원을 다쓰면 close해야한다.
+8. JPQL vs SQL -> table 종속의 쿼리가 아니라 객체지향 쿼리 작성
